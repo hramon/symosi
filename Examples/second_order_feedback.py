@@ -11,8 +11,8 @@ i[t > 0.1e-6] = t[t > 0.1e-6] / 1e-6
 
 
 step = sources.UserDefinedSource(t, i,)
-filter1 = components.LapaceFilter([1000], [1, 1/(2*numpy.pi*1e6)])
-filter2 = components.LapaceFilter([1], [1, 1/(2*numpy.pi*0.5e9)])
+filter1 = components.LapaceFilter([1000], [1/(2*numpy.pi*1e6), 1])
+filter2 = components.LapaceFilter([1], [1/(2*numpy.pi*0.5e9), 1])
 sum = components.Subtract()
 
 system = core.DynamicSystem("BDF", [step, filter1, filter2, sum], maxStep = 1e-10)

@@ -105,13 +105,13 @@ class LapaceFilter(Block):
         n = len(a) - 1
         if(n > 1):
             self.A = numpy.append(numpy.zeros([1, n - 1]), numpy.identity(n - 1), axis = 1)
-            self.A = numpy.append(self.A, -1*numpy.array([a[:n]]) / a[-1], axis = 0)
+            self.A = numpy.append(self.A, -1*numpy.array([a[-1:0:-1]]) / a[0], axis = 0)
         else:
-            self.A = numpy.array([-a[0] / a[1]])
+            self.A = numpy.array([-a[1] / a[0]])
         self.B = numpy.zeros(n)
         self.B[n - 1] = 1
 
-        self.C = numpy.array(b) / a[-1]
+        self.C = numpy.array(b[-1::-1]) / a[0]
 
         self.setStateDimension(n)
 
