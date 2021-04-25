@@ -1,20 +1,20 @@
-from symosi import core, components, sources
+import symosi
 from matplotlib import pyplot as plt
 import numpy
 
-in1 = sources.SineGenerator(A = 1, f = 10, C = 0, phase = 0)
-in2 = sources.Constant(C = 1)
-in3 = sources.Constant(C = 2*numpy.pi*10)
+in1 = symosi.sources.SineGenerator(A = 1, f = 10, C = 0, phase = 0)
+in2 = symosi.sources.Constant(C = 1)
+in3 = symosi.sources.Constant(C = 2*numpy.pi*10)
 
-sum = components.Add(2)
-div = components.Divide()
+sum = symosi.components.Add(2)
+div = symosi.components.Divide()
 
-inte = components.Integrate()
-di = components.Differentiate()
+inte = symosi.components.Integrate()
+di = symosi.components.Differentiate()
 
-delay = components.TimeDelay(10e-3)
+delay = symosi.components.TimeDelay(10e-3)
 
-system = core.DynamicSystem("FixedStep", [in1, in2, in3, sum, inte, di, div, delay], maxStep = 1e-3)
+system = symosi.DynamicSystem("FixedStep", [in1, in2, in3, sum, inte, di, div, delay], maxStep = 1e-3)
 
 system.connect(("out", in1), (0, sum))
 system.connect(("out", in2), (1, sum))

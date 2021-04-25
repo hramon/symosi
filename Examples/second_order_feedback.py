@@ -1,4 +1,4 @@
-from symosi import core, components, sources
+import symosi
 from matplotlib import pyplot as plt
 import numpy
 import timeit
@@ -10,12 +10,12 @@ i[t > 0.1e-6] = t[t > 0.1e-6] / 1e-6
 
 
 
-step = sources.UserDefinedSource(t, i,)
-filter1 = components.LapaceFilter([1000], [1/(2*numpy.pi*1e6), 1])
-filter2 = components.LapaceFilter([1], [1/(2*numpy.pi*0.5e9), 1])
-sum = components.Subtract()
+step = symosi.sources.UserDefinedSource(t, i,)
+filter1 = symosi.components.LapaceFilter([1000], [1/(2*numpy.pi*1e6), 1])
+filter2 = symosi.components.LapaceFilter([1], [1/(2*numpy.pi*0.5e9), 1])
+sum = symosi.components.Subtract()
 
-system = core.DynamicSystem("BDF", [step, filter1, filter2, sum], maxStep = 1e-10)
+system = symosi.DynamicSystem("BDF", [step, filter1, filter2, sum], maxStep = 1e-10)
 
 system.connect(("out", step), ("in1", sum))
 system.connect(("out", filter2), ("in2", sum))
