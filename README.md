@@ -21,7 +21,7 @@ python setup.py install
 
 ## Simple example
 
-```
+```python
 #plotting
 from matplotlib import pyplot as plt
 
